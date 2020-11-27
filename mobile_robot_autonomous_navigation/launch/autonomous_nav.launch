@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="map_file" default="$(find mobile_robot_autonomous_navigation)/maps/layout.yaml"/>
+  <arg name="model" default="$(find mobile_robot_autonomous_navigation)/urdf/mobile_robot.urdf.xacro"/>
+  
+  <rosparam file="$(find mobile_robot_autonomous_navigation)/config/controllers.yaml" command="load"/>
+  <rosparam file="$(find mobile_robot_autonomous_navigation)/config/joint_limits.yaml" command="load"/>
+ 
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+  
+  <node name="robot_hardware_interface" pkg="mobile_robot_autonomous_navigation" type="mobile_robot_hardware_interface" output="screen">
+    <remap from="/mobile_robot/mobile_base_controller/cmd_vel" to="/cmd_vel"/>
+   </node>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+  </node>
+  
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mobile_robot_autonomous_navigation)/config/nav_config.rviz"/>
+  
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+        args="
+            /mobile_robot/joints_update
+            /mobile_robot/mobile_base_controller" >
+  </node>
+
+
+
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" >
+  </node>
+  
+  <include file="$(find rplidar_ros)/launch/rplidar.launch" />
+  <include file="$(find mobile_robot_autonomous_navigation)/launch/amcl.launch" />
+  <include file="$(find mobile_robot_autonomous_navigation)/launch/move_base.launch" /> 
+  
+</launch>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <rosparam file="$(find mobile_robot_autonomous_navigation)/config/controllers.yaml" command="load"/>
+  <rosparam file="$(find mobile_robot_autonomous_navigation)/config/joint_limits.yaml" command="load"/>
+
+  <arg name="model" default="$(find mobile_robot_autonomous_navigation)/urdf/mobile_robot.urdf.xacro"/>
+  
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+  
+  <node name="robot_hardware_interface" pkg="mobile_robot_autonomous_navigation" type="mobile_robot_hardware_interface" output="screen">
+     <remap from="/mobile_robot/mobile_base_controller/cmd_vel" to="/cmd_vel"/>
+   </node>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+  </node>
+  
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mobile_robot_autonomous_navigation)/config/rviz_config.rviz"/>
+  
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+        args="
+        	/mobile_robot/joints_update
+            /mobile_robot/mobile_base_controller" >
+  </node>
+
+  <!--<node name="telop" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py"/>-->
+ 
+</launch>

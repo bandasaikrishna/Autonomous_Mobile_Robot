@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<robot name="mobile_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <material name="blue">
+	    <color rgba="0 0 0.8 1"/>
+    </material>
+
+    <material name="white">
+	    <color rgba="1 1 1 1"/>
+    </material>
+
+    <material name="black">
+	    <color rgba="0 0 0 1"/>
+    </material>
+
+    <material name="green">
+        <color rgba="0.0 0.8 0.0 1.0"/>
+    </material>
+
+    <link name="base_link">
+        <!--<visual>
+          <geometry>
+             <box size="0.24 0.24 0.001"/>
+          </geometry>
+          <material name="white"/>
+          <origin rpy="0 0 0" xyz="0 0 0.0005"/>
+          <material>
+            <color rgba="0 0 0.8 1" />
+          </material>
+        </visual> -->
+        <collision>
+          <origin rpy="0 0 0" xyz="0 0 0.0005"/>
+          <geometry>
+            <box size="0.22 0.22 0.001"/>
+          </geometry>
+        </collision>
+    </link>
+
+    <joint name="base_link_joint" type="fixed">
+        <origin xyz="0 0 0.026" rpy="0 0 -1.5708" />
+        <parent link="base_link" />
+        <child link="base_plate" />
+    </joint>
+
+    <link name="base_plate">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.03 0 -0.026"/>
+      <geometry>
+        <mesh filename="package://mobile_robot_autonomous_navigation/stl/Chasis.stl" scale="0.001 0.001 0.001"/> 
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.03 0 -0.026"  />
+      <geometry>
+        <mesh filename="package://mobile_robot_autonomous_navigation/stl/Chasis.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+    </link>   
+    
+    
+    <joint name="right_wheel_joint" type="continuous">
+        <origin xyz="-0.08 -0.06 0.015" rpy="0 0 0" />
+        <parent link="base_plate" />
+        <child link="right_wheel" />
+        <axis xyz="-1 0 0" />
+    </joint>
+
+    <link name="right_wheel">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.11 0.059 -0.04"/>
+      <geometry>
+        <mesh filename="package://mobile_robot_autonomous_navigation/stl/Wheel.stl" scale="0.001 0.001 0.001"/> 
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.11 0.059 -0.04"/>
+      <geometry>
+        <mesh filename="package://mobile_robot_autonomous_navigation/stl/Wheel.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+    </link>   
+    
+    <joint name="left_wheel_joint" type="continuous">
+        <origin xyz="0.08 -0.06 0.015" rpy="0 0 0" />
+        <parent link="base_plate" />
+        <child link="left_wheel" />
+        <axis xyz="-1 0 0" />
+    </joint>
+
+    <link name="left_wheel">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.133 0.059 -0.04"/>
+      <geometry>
+        <mesh filename="package://mobile_robot_autonomous_navigation/stl/Wheel.stl" scale="0.001 0.001 0.001"/> 
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.133 0.059 -0.04"/>
+      <geometry>
+        <mesh filename="package://mobile_robot_autonomous_navigation/stl/Wheel.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+    </link>   
+    
+    <joint name="laser_joint" type="fixed">
+        <origin xyz="0 0.040 0.090" rpy="0 0 1.5708" />
+        <parent link="base_plate" />
+        <child link="laser" />
+    </joint>
+
+    <link name="laser">
+    <visual>
+      <origin rpy="0 0 -1.5708" xyz="0.084 -0.242 -0.098"/>
+      <geometry>
+        <mesh filename="package://mobile_robot_autonomous_navigation/stl/RpLidar.stl" scale="0.001 0.001 0.001"/> 
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.242 0.084 -0.098"  />
+      <geometry>
+        <mesh filename="package://mobile_robot_autonomous_navigation/stl/RpLidar.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+    </link>  
+    
+</robot>
