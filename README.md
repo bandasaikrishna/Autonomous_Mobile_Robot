@@ -15,6 +15,10 @@ AMCL is used for localisation, with DWA local planner planner for path planning.
 4. Robot Chasis
 5. Boost converter to provide 12V for motors.
 
+![Jetson Nano and LiDAR](https://github.com/0xraks/Autonomous_Mobile_Robot/raw/main/mobile_robot_autonomous_navigation/2020-12-07%2011_36_51-Autonomous%20Navigation%20Mobile%20Robot%20using%20ROS%20_%20Jetson%20Nano%20_%20RPLidar%20_%20Different.png)
+![Arduinos and motors](https://github.com/0xraks/Autonomous_Mobile_Robot/raw/main/mobile_robot_autonomous_navigation/2020-12-07%2011_37_10-Autonomous%20Navigation%20Mobile%20Robot%20using%20ROS%20_%20Jetson%20Nano%20_%20RPLidar%20_%20Different.png)
+
+
 
 
 
